@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+    <html lang="es-ES">
+        <head>
+            <meta charset="UTF-8" />
+            <title>Fotos cámaras</title>
+            <style> img{ 
+                        padding-top: 20px;
+                        position: absolute;
+                        display: block;
+                        width: 90%;
+                        margin-left: 5%;                               
+                    } 
+                    button{  
+                        height: 40px;
+                        width: 33%;
+                    }
+                    h1{
+                        text-align: center;
+                        width: 100%                    
+                    }
+            </style>
+        </head>
+        <body>
+            <h1 id="h1i">Imágenes RGB TFGAgro</h1>
+            <button id="anterior" onclick="anterior()">Anterior</button>
+            <button id="timelapse" onclick="timeLapse()">TimeLapse</button>
+            <button id="siguiente" onclick="siguiente()">Siguiente</button>
+
+            {% for foto in fotos %}
+                {% if loop.first %}
+                    <img id="{{ loop.index0 }}" src="/static/{{ foto }}" style="visibility:visible">
+                {% else %}
+                    <img id="{{ loop.index0 }}" src="/static/{{ foto }}" style="visibility:hidden">
+                {% endif %}
+            {%endfor%}
+<script> 
+        var index = 0;
+        console.log("Valor inicial de index ->" + index);
+        var nFotos = {{ fotosSize }}
+         function timeLapse() {
+            index = 0;
+            document.getElementById("anterior").disabled = true;
+            document.getElementById("timelapse").disabled = true;
+            document.getElementById("siguiente").disabled = true;
+            var interval = setInterval(function() {
+                var indexActual = index % nFotos;   
+                var indexSiguiente = (index + 1) % nFotos;
+                document.getElementById(indexActual.toString()).style.visibility = "hidden";
+                document.getElementById(indexSiguiente.toString()).style.visibility = "visible";
+                index++;
+                if(index == nFotos) {
+                    document.getElementById("anterior").disabled = false;
+                    document.getElementById("timelapse").disabled = false;
+                    document.getElementById("siguiente").disabled = false;
+                    index = 0;
+                    clearInterval(interval);                
+                }
+             
+                console.log("Iteracion " + indexActual);
+                console.log("Visibilidad del elemento acutal" + indexActual.toString() + ": " + document.getElementById(indexActual.toString()).style.visibility)
+                console.log("Visibilidad del elemento siguiente " + indexSiguiente.toString() +  ": " +  document.getElementById(indexSiguiente.toString()).style.visibility)
+
+            }, 1000, index, nFotos, interval);
+
+        }
+        function siguiente() {
+            if(index < nFotos-1) {
+                document.getElementById(index.toString()).style.visibility = "hidden";
+                index++;
+                document.getElementById(index.toString()).style.visibility = "visible";
+            }
+        }
+        function anterior() {
+            if(index > 0) {
+                document.getElementById(index.toString()).style.visibility = "hidden";
+                index--;
+                document.getElementById(index.toString()).style.visibility = "visible";
+            }
+        }
+    </script>
+</body>
+</html>
