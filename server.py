@@ -8,20 +8,15 @@ import funcionalidad
 
 app = Flask(__name__)
 
-
+parentFolder = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/')
 def httpGET():
-    #fotos = sorted(os.listdir("/home/sgarciatz/carpetaCompartida/green_visor_imgs"))
-    
+    #Se llama a este metodo por si hace falte generar nuevas imagenes
     funcionalidad.generarImagenes()
-    #fotos = funcionalidad.obtenerCursorFotos()
-    #fotos = funcionalidad.agruparPorTimestamp(fotos)
-
-    #funcionalidad.solaparFotos(fotos)
-
-    fotosDefinitivas = sorted(os.listdir("./static"), reverse=True)
-   
+    
+    fotosDefinitivas = sorted(os.listdir(os.path.join(parentFolder, "static")), reverse=True)
+    print(fotosDefinitivas)
     return render_template('pageTemplate', fotos=fotosDefinitivas, fotosSize=len(fotosDefinitivas))
 
 if __name__ == '__main__':
