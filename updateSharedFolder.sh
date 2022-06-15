@@ -3,16 +3,16 @@ if [ $# -lt 3 ]; then
     exit
 fi
 
-shared_folder=$HOME/DashboardTFG/sharedFolder
-
-printf "${shared_folder}\n"
+shared_folder=${HOME}DashboardTFG/sharedFolder
 
 if [ ! -d  $shared_folder ]; then
     mkdir $shared_folder
 fi
 
-printf "nextcloudcmd --silent --exclude $4 --user ${1} --password ${2} ${sharedFolder} ${3} \n"
+printf "\n nextcloudcmd --silent --exclude $4 --user ${1} --password ${2} ${sharedFolder} ${3} \n"
 
 nextcloudcmd --silent --exclude $4 --user $1 --password $2 $shared_folder $3
 
-python3.10 $HOME/DashboardTFG/cargarMongo.py
+#/home/sgarciatz/anaconda3/bin/conda activate /home/sgarciatz/anaconda3/envs/prepararMongo
+
+${HOME}anaconda3/envs/prepararMongo/bin/python3.10 ${HOME}DashboardTFG/cargarMongo.py
