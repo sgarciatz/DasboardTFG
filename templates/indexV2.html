@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Visor Imágenes RGB</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styleV2.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1 id="titulo">Visor de imágenes RGB</h1>
+    <div id="visor_wrapper">
+        <div id="visor">
+            {% for foto in fotos %}
+                <div class="captura">
+                    <img src="/static/vera_images/{{ foto }}">
+                    <p> Nombre del fichero: <b> {{ foto }} </b> </p>
+                    <p> Fecha en la que fue tomada (Día - Mes - Año):         <b> {{foto[8:10]}} - {{foto[5:7]}} - {{foto[0:4]}}</b> </p>
+                    <p> Instante de tiempo de la captura (hh:mm:ss): <b>  {{foto[11:13]}}:{{foto[14:16]}}:{{foto[17:19]}} </b> </p> 
+                </div>
+            {%endfor%}
+    </div>
+    </div>
+{% endblock %}
+
+
+
+
