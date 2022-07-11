@@ -11,13 +11,22 @@ app = Flask(__name__)
 parentFolder = os.path.dirname(os.path.abspath(__file__))
 
 @app.route('/')
-def httpGET():
+def index():
     #Se llama a este metodo por si hace falte generar nuevas imagenes
     funcionalidad.generarImagenes()
-    
-    fotosDefinitivas = sorted(os.listdir(os.path.join(parentFolder, "static")), reverse=True)
-    print(fotosDefinitivas)
-    return render_template('pageTemplate', fotos=fotosDefinitivas, fotosSize=len(fotosDefinitivas))
+
+    fotosDefinitivas = sorted(os.listdir(os.path.join(parentFolder, "static", "vera_images")), reverse=True)
+    print(len(fotosDefinitivas), fotosDefinitivas)
+    return render_template('indexV2.html', fotos=fotosDefinitivas, fotosSize=len(fotosDefinitivas))
+
+@app.route('/timeLapse')
+def timeLapse():
+    #Se llama a este metodo por si hace falte generar nuevas imagenes
+    funcionalidad.generarImagenes()
+    fotosDefinitivas = sorted(os.listdir(os.path.join(parentFolder, "static", "vera_images")), reverse=True)
+    return render_template('index.html', fotos=fotosDefinitivas, fotosSize=len(fotosDefinitivas))
+
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080)

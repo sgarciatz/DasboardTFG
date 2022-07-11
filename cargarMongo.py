@@ -5,9 +5,9 @@ from datetime import datetime
 
 parent_folder = os.path.dirname(os.path.realpath(__file__))
 rgb_folder    = os.path.join(parent_folder, "sharedFolder", "imagenes_vera",  "rgb")
-hyper_folder  = os.path.join(parent_folder, "sharedFolder", "imagenes_vera", "hyper")
+hiper_folder  = os.path.join(parent_folder, "sharedFolder", "imagenes_vera", "hiper")
 rgb_images    = sorted(os.listdir(rgb_folder))
-hyper_images  = sorted(os.listdir(hyper_folder))
+hiper_images  = sorted(os.listdir(hiper_folder))
 client        = MongoClient('localhost', 27017)
 fs            = gridfs.GridFS(client.fotosAgro, "fotosRGB")
 
@@ -25,7 +25,7 @@ for image in rgb_images:
 
 fs = gridfs.GridFS(client.fotosAgro, "fotosHyper")
 
-for image in hyper_images:
+for image in hiper_images:
    with open(hyper_folder + "/" + image, "rb") as image_file:
         try:
             image_timestamp = datetime.fromisoformat(image[5:31])

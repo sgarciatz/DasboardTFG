@@ -45,9 +45,9 @@ def solaparFotos(fotosAgrupadas):
             buffer = fs.find_one({"filename": foto["filename"]}).read()
             imagen = Image.open(BytesIO(buffer))
             fotosSolapadas.paste(imagen, (1080*int(foto["pos"]),0))
-        fotosSolapadas = aplicarEcualizacion(fotosSolapadas)
+        #fotosSolapadas = aplicarEcualizacion(fotosSolapadas)
         nombreImagen = foto["filename"][:26] + ".jpg"
-        fotosSolapadas.save(os.path.join(staticFolder, nombreImagen))
+        fotosSolapadas.save(os.path.join(staticFolder, "vera_images", nombreImagen))
         with open(os.path.join(parentFolder, "ultimoTimestamp"), "wt") as ultimoTimestamp:
             ultimoTimestamp.write(nombreImagen[:26])
         print(f"Imagen generada -> {nombreImagen}") 
